@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance Blog</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for the Eye Icon and Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Custom Tailwind Configuration */
+        :root {
+            --primary-color: #ffc300; /* Gold/Yellow Accent */
+            --secondary-color: #1f2937; /* Dark Grey/Slate for text */
+        }
+        
+        /* Custom Styles for Animation and Card Look */
+        html {
+            scroll-behavior: smooth; /* Enable smooth scrolling to new sections */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8;
+        }
+
+        .card-container {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .card-loaded {
+            opacity: 1;
+        }
+
+        .blog-card {
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0);
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .category-tag {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 9999px; /* rounded-full */
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .eye-icon {
+            color: var(--secondary-color);
+            transition: color 0.2s;
+        }
+        .eye-icon:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section Animation */
+        .hero-title {
+            animation: fadeInDown 1s ease-out;
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#home" class="text-3xl font-extrabold" style="color: var(--secondary-color);">Blog.</a>
+                <nav class="hidden md:flex space-x-8">
+                    <!-- Updated links to enable smooth scrolling -->
+                    <a href="#home" class="text-sm font-medium hover:text-gray-900 border-b-2 border-transparent transition duration-150 ease-in-out" style="color: var(--secondary-color); border-bottom-color: var(--primary-color);">Career Guidance</a>
+                    <a href="#about" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">About</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Home) -->
+    <section id="home" class="bg-gray-50 py-16 mb-10 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="hero-title text-5xl sm:text-6xl font-extrabold tracking-tight" style="color: var(--secondary-color);">
+                The <span style="color: var(--primary-color);">Career Guidance</span> Hub
+            </h1>
+            <p class="hero-subtitle mt-4 max-w-2xl mx-auto text-xl text-gray-600">
+                Insights, notifications, and step-by-step guides for your next professional move.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white rounded-xl shadow-lg mb-10 border-t-4" style="border-top-color: var(--primary-color);">
+        <h2 class="text-4xl font-extrabold mb-8 text-center" style="color: var(--secondary-color);">About Me</h2>
+        <div class="max-w-4xl mx-auto space-y-6 text-lg text-gray-700">
+            <p>
+MCA graduate with 1+ year of experience in digital marketing, web hosting operations, UI/UX design, and technical support gained through hands-on industry exposure. Experienced in team coordination and delivering user-focused, impactful results
+            </p>
+            <p>
+Highly motivated to contribute to diverse roles in IT, analytics, HR, and digital domains. Open to opportunities in IT, data analysis, HR, design, and digital marketing to drive organizational growth and innovation.
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Post Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div class="flex items-center mb-10">
+            <h2 class="text-2xl font-bold border-b-4 pb-1" style="border-bottom-color: var(--primary-color);">Category: Career Guidance</h2>
+        </div>
+
+        <!-- Dynamic Blog Card Container -->
+        <div id="blog-grid" class="card-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Cards will be injected here by JavaScript -->
+            <p id="loading-message" class="col-span-full text-center text-gray-500">Loading career insights...</p>
+        </div>
+    </main>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+        <h2 class="text-4xl font-extrabold mb-8 text-center" style="color: var(--secondary-color);">Get in Touch</h2>
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 md:p-12 border-b-4" style="border-bottom-color: var(--primary-color);">
+            <h3 class="text-2xl font-bold mb-8 text-center" style="color: var(--primary-color);">My Details</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-map-marker-alt text-2xl mt-1" style="color: var(--primary-color);"></i>
+                    <div>
+                        <p class="font-semibold text-gray-500">Location</p>
+                        <p>Dubai, United Arab Emirates</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-envelope text-2xl mt-1" style="color: var(--primary-color);"></i>
+                    <div>
+                        <p class="font-semibold text-gray-500">Email</p>
+                        <a href="mailto:sushmithamonthero0606@gmail.com" class="hover:underline">sushmithamonthero0606@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-phone text-2xl mt-1" style="color: var(--primary-color);"></i>
+                    <div>
+                        <p class="font-semibold text-gray-500">Phone</p>
+                        <a href="tel:+971569833926" class="hover:underline">+971 569833926</a>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="space-y-4">
+                    <p class="font-semibold text-gray-500 text-base">Professional Profiles</p>
+                    <a href="https://www.linkedin.com/in/sushmitha-monthero/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-blue-700 hover:text-blue-900 transition duration-150">
+                        <i class="fab fa-linkedin text-xl"></i>
+                        <span class="hover:underline">LinkedIn Profile</span>
+                    </a>
+                    <a href="https://github.com/SushmithaMonthero" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 text-gray-800 hover:text-gray-600 transition duration-150">
+                        <i class="fab fa-github text-xl"></i>
+                        <span class="hover:underline">GitHub Profile</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Blog Post Data ---
+        // Contains all the post details, including title, date, link, and a unique placeholder image context.
+        const blogPosts = [
+            {
+                title: "Level Up Your Life: How Upskilling and Reskilling Can Transform Your Career Journey",
+                date: "July 12, 2025",
+                link: "https://blog.drawmycareer.com/upskilling-and-reskilling-for-career-growth/",
+                imageText: "SKILL%20GROWTH"
+            },
+            {
+                title: "NATA 2025: Exam Dates, Slot Booking, Application, Syllabus, Result & Expected Cutoff",
+                date: "July 8, 2025",
+                link: "https://blog.drawmycareer.com/nata-2025-exam-dates-application-slot-booking-syllabus-result-cutoff/",
+                imageText: "NATA%20EXAM"
+            },
+            {
+                title: "IBPS PO 2025 Notification Out for 5208 Vacancies – Revised Exam Pattern, Dates, Eligibility & Apply Online",
+                date: "July 4, 2025",
+                link: "https://blog.drawmycareer.com/ibps-po-2025-notification-out-for-5208-vacancies-revised-exam-pattern-dates-eligibility-apply-online/",
+                imageText: "BANK%20PO"
+            },
+            {
+                title: "SBI PO 2025 Notification Out for 541 Vacancies, Official PDF, Eligibility Criteria, Online Registrations starts",
+                date: "July 3, 2025",
+                link: "https://blog.drawmycareer.com/sbi-po-recruitment-2025-apply-online-selection-process-fees/",
+                imageText: "SBI%20PO"
+            },
+            {
+                title: "NEET UG Counselling 2025: How to Register, Documents Required, Process with Rules and Guidelines",
+                date: "July 1, 2025",
+                link: "https://blog.drawmycareer.com/neet-ug-counselling-2025-how-to-register-documents-required-process-with-rules-and-guidelines/",
+                imageText: "NEET%20COUNSEL"
+            },
+            {
+                title: "SSC CGL 2025 Notification Released for 14,582 Vacancies – Apply Online, Check Eligibility & Exam Dates",
+                date: "June 30, 2025",
+                link: "https://blog.drawmycareer.com/ssc-cgl-2025-notification-14582-vacancies-apply-online/",
+                imageText: "SSC%20CGL"
+            },
+            {
+                title: "UGCET 2025: KEA issues Verification Slips at cetonline.karnataka.gov.in : Correction dates to be announced soon",
+                date: "June 27, 2025",
+                link: "https://blog.drawmycareer.com/ugcet-2025-verification-slip-kea-document-correction/",
+                imageText: "UGCET%20DOCS"
+            }
+        ];
+
+        // Function to create the HTML for a single blog card
+        function createBlogCard(post) {
+            // Placeholder image URL generation. Using 16:9 aspect ratio and a simple dark background.
+            const imageUrl = `https://placehold.co/600x337/333/fff?text=${post.imageText}`;
+
+            return `
+                <div class="blog-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <!-- Image Area -->
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <img 
+                            src="${imageUrl}" 
+                            alt="${post.title}" 
+                            class="w-full h-full object-cover transition duration-300 ease-in-out hover:opacity-90"
+                            onerror="this.onerror=null; this.src='https://placehold.co/600x337/555/eee?text=Image+Not+Available'"
+                        >
+                        <!-- Category Tag Overlay -->
+                        <div class="absolute top-4 right-4">
+                            <span class="category-tag">Career Guidance</span>
+                        </div>
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="p-6 flex flex-col flex-grow">
+                        <!-- Title -->
+                        <h3 class="text-xl font-bold mb-3 leading-snug" style="color: var(--secondary-color);">
+                            ${post.title}
+                        </h3>
+
+                        <!-- Link Row -->
+                        <div class="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
+                            <!-- Read More/Date -->
+                            <div class="text-sm text-gray-500">
+                                <span class="uppercase font-semibold tracking-wider text-xs" style="color: var(--primary-color);">Read More »</span>
+                                <span class="mx-2">•</span>
+                                <span>${post.date}</span>
+                            </div>
+                            
+                            <!-- Eye Icon Link -->
+                            <a href="${post.link}" target="_blank" rel="noopener noreferrer" title="View Live Blog Post" class="eye-icon">
+                                <i class="fas fa-eye text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render all blog posts
+        function renderBlogPosts() {
+            const grid = document.getElementById('blog-grid');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            // Clear loading message
+            if (loadingMessage) {
+                loadingMessage.remove();
+            }
+
+            // Generate all card HTML
+            const cardsHtml = blogPosts.map(createBlogCard).join('');
+            
+            // Insert cards into the grid
+            grid.innerHTML = cardsHtml;
+
+            // Apply fade-in animation class after content is loaded
+            setTimeout(() => {
+                grid.classList.add('card-loaded');
+            }, 50); // Small delay to ensure rendering starts
+        }
+
+        // Initialize on window load
+        window.onload = renderBlogPosts;
+
+    </script>
+</body>
+</html>
